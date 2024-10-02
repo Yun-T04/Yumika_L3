@@ -1,0 +1,32 @@
+<h1>ツイートの編集</h1>
+
+<% if @tweet.errors.any? %>
+  <div>
+    <h2><%= @tweet.errors.count %> 件のエラーがあります:</h2>
+    <ul>
+      <% @tweet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @tweet, local: true do |form| %>
+  <div>
+    <label for="tweet_message">メッセージ</label>
+    <textarea id="tweet_message" name="tweet[message]" maxlength="140"><%= @tweet.message %></textarea>
+  </div>
+
+  <div>
+    <%= form.submit '更新' %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "このツイートを表示", @tweet %> |
+  <%= link_to "ツイート一覧に戻る", tweets_path %>
+</div>
+
+<% if flash[:error] %>
+  <div style="color: red;"><%= flash[:error] %></div>
+<% end %>
